@@ -28,24 +28,21 @@ class ImportCsvData implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
-    {
+    public function handle(): void {
 
         try {
 
             $csv = Reader::createFromPath(storage_path('app/' . $this->filePath), 'r');
-
+            $csv->setDelimiter(';');
             $csv->setHeaderOffset(0);
-            $header = explode(';', $csv->getHeader()[0]);
 
             foreach ($csv as $row) {
 
-                $values = explode(';', array_values($row)[0]);
-
-                UserModel::updateOrCreate(['EMŠO' => array_combine($header, $values)['EMŠO']], array_combine($header, $values));
+                UserModel::updateOrCreate(['EMŠO' => $row['EMŠO']], $row);
             }
         } catch (\Exception $e) {
 
+            dd($e->getMessage());
             throw new Exception('Wrong table structure', 500);
 
         }

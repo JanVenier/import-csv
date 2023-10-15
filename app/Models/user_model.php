@@ -13,5 +13,9 @@ class user_model extends Model
     protected $table = 'users';
     protected $fillable = ['EMŠO', 'Ime osebe', 'Država', 'Starost', 'Opis osebe'];
 
+    protected $casts = [
+        'EMŠO' => 'integer',
+        'Starost' => 'integer'
+    ];
 
 }

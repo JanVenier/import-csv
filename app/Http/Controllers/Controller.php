@@ -19,7 +19,7 @@ class Controller extends BaseController
         return view('users');
     }
 
-    public function upload(Request $request)
+    public function upload (Request $request): \Illuminate\Http\RedirectResponse
     {
 
         if (!$request->file()) {
@@ -44,6 +44,7 @@ class Controller extends BaseController
 
                 return redirect()->back()->with('error', 'No csv file detected.');
             }
+
             $path = $file->store('csv_imports');
 
             ImportCsvData::dispatch($path);
