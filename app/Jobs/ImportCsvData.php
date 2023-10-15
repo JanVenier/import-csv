@@ -41,8 +41,7 @@ class ImportCsvData implements ShouldQueue
                 UserModel::updateOrCreate(['EMŠO' => $row['EMŠO']], $row);
             }
         } catch (\Exception $e) {
-
-            dd($e->getMessage());
+            
             throw new Exception('Wrong table structure', 500);
 
         }
